@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>结算页四条件 · 视觉预览</title>
+<style>/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/.pnpm/next@15.5.25_@types+node@26.6.1_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/.pnpm/next@15.5.25_@types+node@26.6.1_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./app/globals.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*
+ * Neutral experiment styling.
+ *
+ * Deliberately plain. The blueprint forbids flashing, sound, pop-ups, colour
+ * warnings, social proof and promotional wording, so there is none of it here:
+ * no red, no animation on the time cue, no urgency colouring. The interface is
+ * meant to be realistic and unremarkable, because anything attention-grabbing
+ * would be an additional manipulation the design cannot attribute.
+ *
+ * Every page in every condition uses the same layout. The only thing a
+ * condition changes is the content of the time cue and of the promotion card.
+ */
+
+:root {
+  --ink: #1a1a1a;
+  --ink-soft: #55585e;
+  --line: #d9dce1;
+  --surface: #ffffff;
+  --surface-soft: #f5f6f8;
+  --accent: #2b4c7e;
+  --radius: 4px;
+  --gap: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--surface-soft);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: var(--gap);
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+h2 {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+p {
+  margin: 0 0 12px;
+  color: var(--ink-soft);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.mono {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--gap);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.amount {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+button {
+  font: inherit;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: var(--surface);
+  color: var(--accent);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+button + button {
+  margin-left: 8px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px 0 20px;
+}
+
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.option.selected {
+  border-color: var(--accent);
+  background: var(--surface-soft);
+}
+
+.scale-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.scale-row .prompt {
+  flex: 1 1;
+}
+
+.scale-choices {
+  display: flex;
+  gap: 4px;
+}
+
+.scale-choices button {
+  padding: 4px 8px;
+  min-width: 34px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.scale-choices button.on {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.slider-row input[type='range'] {
+  flex: 1 1;
+}
+
+.notice {
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.items {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.item {
+  flex: 1 1 160px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+
+.item.selected {
+  border-color: var(--accent);
+}
+
+.item .name {
+  font-weight: 600;
+}
+
+.time-cue {
+  font-size: 18px;
+}
+
+.promo-list {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--ink-soft);
+}
+
+.promo-list li {
+  margin-bottom: 4px;
+}
+
+.actions {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.step {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+
+
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/.pnpm/next@15.5.25_@types+node@26.6.1_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/.pnpm/next@15.5.25_@types+node@26.6.1_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./app/globals.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*
+ * Neutral experiment styling.
+ *
+ * Deliberately plain. The blueprint forbids flashing, sound, pop-ups, colour
+ * warnings, social proof and promotional wording, so there is none of it here:
+ * no red, no animation on the time cue, no urgency colouring. The interface is
+ * meant to be realistic and unremarkable, because anything attention-grabbing
+ * would be an additional manipulation the design cannot attribute.
+ *
+ * Every page in every condition uses the same layout. The only thing a
+ * condition changes is the content of the time cue and of the promotion card.
+ */
+
+:root {
+  --ink: #1a1a1a;
+  --ink-soft: #55585e;
+  --line: #d9dce1;
+  --surface: #ffffff;
+  --surface-soft: #f5f6f8;
+  --accent: #2b4c7e;
+  --radius: 4px;
+  --gap: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--surface-soft);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: var(--gap);
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+h2 {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+p {
+  margin: 0 0 12px;
+  color: var(--ink-soft);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.mono {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--gap);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.amount {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+button {
+  font: inherit;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: var(--surface);
+  color: var(--accent);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+button + button {
+  margin-left: 8px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px 0 20px;
+}
+
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.option.selected {
+  border-color: var(--accent);
+  background: var(--surface-soft);
+}
+
+.scale-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.scale-row .prompt {
+  flex: 1 1;
+}
+
+.scale-choices {
+  display: flex;
+  gap: 4px;
+}
+
+.scale-choices button {
+  padding: 4px 8px;
+  min-width: 34px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.scale-choices button.on {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.slider-row input[type='range'] {
+  flex: 1 1;
+}
+
+.notice {
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.items {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.item {
+  flex: 1 1 160px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+
+.item.selected {
+  border-color: var(--accent);
+}
+
+.item .name {
+  font-weight: 600;
+}
+
+.time-cue {
+  font-size: 18px;
+}
+
+.promo-list {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--ink-soft);
+}
+
+.promo-list li {
+  margin-bottom: 4px;
+}
+
+.actions {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.step {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+
+</style>
+<style>
+  body { margin: 0; background: #f3f4f6; font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+  .pv-banner { background: #1f2937; color: #e5e7eb; padding: 10px 14px; font-size: 12px; line-height: 1.6; }
+  .pv-banner b { color: #fbbf24; }
+  .pv-conds { display: flex; gap: 8px; flex-wrap: wrap; padding: 10px 14px; background: #fff; border-bottom: 1px solid #e5e7eb; align-items: center; }
+  .pv-conds span { font-size: 12px; color: #6b7280; }
+  .pv-stage { max-width: 430px; margin: 16px auto; background: #fff; min-height: 70vh; padding: 12px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .pv-tip { max-width: 430px; margin: 0 auto 10px; font-size: 12px; color: #92400e; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 8px 10px; min-height: 18px; }
+</style>
+</head>
+<body>
+<div class="pv-banner">
+  <b>视觉预览，不是可参与的实验。</b>
+  页面结构与样式取自真实运行的原型；但这里没有服务端：倒计时是本地计时，加购后显示的金额与优惠卡
+  是服务端预先算好的结果快照。点击不会写入任何数据，也不会分配实验条件。
+</div>
+<div class="pv-conds" id="conds"><span>实验条件：</span></div>
+<div class="pv-tip" id="tip">点「开始任务」→ 右上角出现时间提示；点「加入」切换 A/B/C。</div>
+<main class="page" id="stage"></main>
+<script>window.__SNAPSHOTS__ = {"task": {"T0P0": {"pre": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\"><span class=\"label\">任务尚未开始</span></span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>本单优惠：店铺券 满 200 元减 20 元</p><p>已优惠 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\" disabled=\"\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">250<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">开始任务</button></div></div>", "none": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">优惠截止时间：23:31:50</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>本单优惠：店铺券 满 200 元减 20 元</p><p>已优惠 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\" disabled=\"\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">250<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>", "A": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">优惠截止时间：23:31:50</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机 + 商品 A</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>本单优惠：店铺券 满 200 元减 20 元</p><p>已优惠 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item selected\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">已选择</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">251<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>", "B": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">优惠截止时间：23:31:50</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机 + 商品 B</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>本单优惠：店铺券 满 200 元减 20 元</p><p>已优惠 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item selected\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">已选择</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">255<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>", "C": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">优惠截止时间：23:31:50</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机 + 商品 C</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>本单优惠：店铺券 满 200 元减 20 元</p><p>已优惠 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item selected\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">已选择</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">265<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>"}, "T1P0": {"pre": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\"><span class=\"label\">任务尚未开始</span></span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>本单优惠：店铺券 满 200 元减 20 元</p><p>已优惠 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\" disabled=\"\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">250<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">开始任务</button></div></div>", "none": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">02:58</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>本单优惠：店铺券 满 200 元减 20 元</p><p>已优惠 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\" disabled=\"\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">250<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>", "A": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">02:57</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机 + 商品 A</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>本单优惠：店铺券 满 200 元减 20 元</p><p>已优惠 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item selected\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">已选择</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">251<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>", "B": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">02:57</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机 + 商品 B</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>本单优惠：店铺券 满 200 元减 20 元</p><p>已优惠 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item selected\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">已选择</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">255<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>", "C": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">02:56</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机 + 商品 C</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>本单优惠：店铺券 满 200 元减 20 元</p><p>已优惠 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item selected\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">已选择</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">265<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>"}, "T0P1": {"pre": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\"><span class=\"label\">任务尚未开始</span></span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>小计：无线降噪耳机 270 元 = 270 元</p><p>优惠一：店铺券，满 200 元减 20 元（可用）</p><p>优惠二：平台满减，满 300 元减 50 元（未达门槛）</p><p>两项优惠不能同时使用，系统自动采用优惠更大的一项。</p><p>本次采用：店铺券 满 200 元减 20 元，减 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\" disabled=\"\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">250<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">开始任务</button></div></div>", "none": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">优惠截止时间：23:32:01</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>小计：无线降噪耳机 270 元 = 270 元</p><p>优惠一：店铺券，满 200 元减 20 元（可用）</p><p>优惠二：平台满减，满 300 元减 50 元（未达门槛）</p><p>两项优惠不能同时使用，系统自动采用优惠更大的一项。</p><p>本次采用：店铺券 满 200 元减 20 元，减 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\" disabled=\"\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">250<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>", "A": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">优惠截止时间：23:32:01</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机 + 商品 A</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>小计：无线降噪耳机 270 元 = 270 元</p><p>优惠一：店铺券，满 200 元减 20 元（可用）</p><p>优惠二：平台满减，满 300 元减 50 元（未达门槛）</p><p>两项优惠不能同时使用，系统自动采用优惠更大的一项。</p><p>本次采用：店铺券 满 200 元减 20 元，减 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item selected\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">已选择</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">251<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>", "B": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">优惠截止时间：23:32:01</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机 + 商品 B</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>小计：无线降噪耳机 270 元 = 270 元</p><p>优惠一：店铺券，满 200 元减 20 元（可用）</p><p>优惠二：平台满减，满 300 元减 50 元（未达门槛）</p><p>两项优惠不能同时使用，系统自动采用优惠更大的一项。</p><p>本次采用：店铺券 满 200 元减 20 元，减 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item selected\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">已选择</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">255<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>", "C": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">优惠截止时间：23:32:01</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机 + 商品 C</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>小计：无线降噪耳机 270 元 = 270 元</p><p>优惠一：店铺券，满 200 元减 20 元（可用）</p><p>优惠二：平台满减，满 300 元减 50 元（未达门槛）</p><p>两项优惠不能同时使用，系统自动采用优惠更大的一项。</p><p>本次采用：店铺券 满 200 元减 20 元，减 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item selected\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">已选择</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">265<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>"}, "T1P1": {"pre": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\"><span class=\"label\">任务尚未开始</span></span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>小计：无线降噪耳机 270 元 = 270 元</p><p>优惠一：店铺券，满 200 元减 20 元（可用）</p><p>优惠二：平台满减，满 300 元减 50 元（未达门槛）</p><p>两项优惠不能同时使用，系统自动采用优惠更大的一项。</p><p>本次采用：店铺券 满 200 元减 20 元，减 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\" disabled=\"\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">250<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">开始任务</button></div></div>", "none": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">02:59</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>小计：无线降噪耳机 270 元 = 270 元</p><p>优惠一：店铺券，满 200 元减 20 元（可用）</p><p>优惠二：平台满减，满 300 元减 50 元（未达门槛）</p><p>两项优惠不能同时使用，系统自动采用优惠更大的一项。</p><p>本次采用：店铺券 满 200 元减 20 元，减 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\" disabled=\"\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">250<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>", "A": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">02:58</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机 + 商品 A</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>小计：无线降噪耳机 270 元 = 270 元</p><p>优惠一：店铺券，满 200 元减 20 元（可用）</p><p>优惠二：平台满减，满 300 元减 50 元（未达门槛）</p><p>两项优惠不能同时使用，系统自动采用优惠更大的一项。</p><p>本次采用：店铺券 满 200 元减 20 元，减 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item selected\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">已选择</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">251<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>", "B": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">02:57</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机 + 商品 B</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>小计：无线降噪耳机 270 元 = 270 元</p><p>优惠一：店铺券，满 200 元减 20 元（可用）</p><p>优惠二：平台满减，满 300 元减 50 元（未达门槛）</p><p>两项优惠不能同时使用，系统自动采用优惠更大的一项。</p><p>本次采用：店铺券 满 200 元减 20 元，减 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item selected\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">已选择</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">255<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>", "C": "<div class=\"card\"><div class=\"row\"><span class=\"label\">平台标识 · 结算</span><span class=\"time-cue mono\">02:57</span></div><div class=\"row\"><span class=\"label\">购物车</span><span>无线降噪耳机 + 商品 C</span></div></div><div class=\"card\"><h2>无线降噪耳机</h2><div class=\"row\"><span>单价</span><span>270<!-- --> 元</span></div></div><div class=\"card\"><h2>优惠信息</h2><p>小计：无线降噪耳机 270 元 = 270 元</p><p>优惠一：店铺券，满 200 元减 20 元（可用）</p><p>优惠二：平台满减，满 300 元减 50 元（未达门槛）</p><p>两项优惠不能同时使用，系统自动采用优惠更大的一项。</p><p>本次采用：店铺券 满 200 元减 20 元，减 20 元</p></div><div class=\"card\"><h2>可选商品（最多选择一件）</h2><div class=\"items\"><div class=\"item\"><div class=\"name\">商品 <!-- -->A</div><div class=\"label\">31<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item\"><div class=\"name\">商品 <!-- -->B</div><div class=\"label\">35<!-- --> 元</div><div class=\"actions\"><button type=\"button\">加入</button></div></div><div class=\"item selected\"><div class=\"name\">商品 <!-- -->C</div><div class=\"label\">15<!-- --> 元</div><div class=\"actions\"><button type=\"button\" disabled=\"\">已选择</button></div></div></div><div class=\"actions\"><button type=\"button\" class=\"secondary\">移除可选商品</button></div></div><div class=\"card\"><div class=\"row\"><span>当前应付金额</span><span class=\"amount mono\">265<!-- --> 元</span></div><div class=\"actions\"><button type=\"button\">结算</button></div></div>"}}};</script>
+<script>
+const S = window.__SNAPSHOTS__;
+let cond = 'T1P1';
+let phase = 'pre';
+let cart = 'none';
+let timer = null;
+let left = 180;
+
+const stage = document.getElementById('stage');
+const tip = document.getElementById('tip');
+const conds = document.getElementById('conds');
+
+function render() {
+  stage.innerHTML = S.task[cond][phase === 'pre' ? 'pre' : cart];
+  if (phase === 'active') startClock(); else stopClock();
+}
+
+function stopClock() { if (timer) { clearInterval(timer); timer = null; } }
+function startClock() {
+  stopClock();
+  if (!cond.startsWith('T1')) return;   // static conditions show a fixed deadline
+  const cue = stage.querySelector('.time-cue');
+  if (!cue) return;
+  const paint = () => {
+    const mm = String(Math.floor(left / 60)).padStart(2, '0');
+    const ss = String(left % 60).padStart(2, '0');
+    cue.textContent = mm + ':' + ss;
+  };
+  paint();
+  timer = setInterval(() => {
+    left = Math.max(0, left - 1); paint();
+    if (left === 0) stopClock();
+  }, 1000);
+}
+
+stage.addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  const label = (btn.textContent || '').trim();
+  if (label === '开始任务') { phase = 'active'; cart = 'none'; left = 180; render(); return; }
+  if (label === '加入') {
+    const card = btn.closest('.item');
+    const name = card ? ((card.querySelector('.name') || {}).textContent || '') : '';
+    const letter = name.trim().slice(-1);
+    if (['A', 'B', 'C'].includes(letter)) { cart = letter; render(); }
+    return;
+  }
+  if (label === '移除可选商品') { cart = 'none'; render(); return; }
+  if (label === '结算') {
+    tip.textContent = '真实原型会在此刻由服务端锁定结果（outcome），然后进入 K1–K5 客观题。';
+    return;
+  }
+});
+
+Object.keys(S.task).forEach((code) => {
+  const b = document.createElement('button');
+  b.className = 'pv-tab';
+  b.textContent = code;
+  b.style.cssText = 'font: inherit; font-size: 13px; padding: 6px 12px; border: 1px solid #d1d5db; background: #fff; border-radius: 999px; cursor: pointer;';
+  b.addEventListener('click', () => {
+    cond = code; phase = 'pre'; cart = 'none'; left = 180;
+    document.querySelectorAll('#conds button').forEach((x) => {
+      const on = x.textContent === code;
+      x.style.background = on ? '#111827' : '#fff';
+      x.style.color = on ? '#fff' : '#111827';
+    });
+    tip.textContent = '';
+    render();
+  });
+  conds.appendChild(b);
+});
+document.querySelectorAll('#conds button').forEach((x) => {
+  const on = x.textContent === cond;
+  x.style.background = on ? '#111827' : '#fff';
+  x.style.color = on ? '#fff' : '#111827';
+});
+render();
+</script>
+</body>
+</html>

@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>研究者预览 · 条件选择</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; padding: 0; background: #f5f6f7; color: #1f2329;
+       font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+       font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 64px 20px; }
+.card { background: #fff; border: 1px solid #e8eaed; border-radius: 8px; padding: 28px 32px 26px;
+        box-shadow: 0 1px 2px rgba(0,0,0,.03); margin-bottom: 16px; }
+h1 { font-size: 20px; margin: 0 0 14px; }
+p { margin: 0 0 12px; color: #737a87; font-size: 14px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; margin-top: 18px; }
+button { font: inherit; width: 100%; height: 52px; border: 1px solid #f2672c; border-radius: 8px;
+         background: #f2672c; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; }
+button:hover { background: #de5a20; border-color: #de5a20; }
+button small { display: block; font-size: 12px; font-weight: 400; opacity: .85; margin-top: 2px; }
+.note { font-size: 12.5px; color: #9ba3af; }
+a { color: #737a87; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>研究者预览 · 选择条件</h1>
+    <p>选择条件后进入结算页。进入后页面<strong>不再显示条件编码</strong>，也不含任何调试标签。</p>
+    <p>该版本为 interactive mock：无服务端、不连接数据库、不写入任何数据、不收集 participant_id；
+       全部状态仅存在于当前页面内存，刷新即重置（仅研究者选定的条件通过 sessionStorage 传递）。</p>
+    <div class="grid">
+      <button type="button" data-c="T0P0">T0P0<small>静态截止时间 · 结果式优惠</small></button>
+      <button type="button" data-c="T1P0">T1P0<small>倒计时 · 结果式优惠</small></button>
+      <button type="button" data-c="T0P1">T0P1<small>静态截止时间 · 过程式优惠</small></button>
+      <button type="button" data-c="T1P1">T1P1<small>倒计时 · 过程式优惠</small></button>
+    </div>
+    <p class="note" style="margin-top:18px">
+      仅供认知访谈与人工交互测试，<strong>不用于正式数据收集</strong>。
+      页面不含 consent / demographics / comprehension / C1–C3 / K1–K5 / questionnaire / debrief。
+    </p>
+  </div>
+  <div class="card">
+    <p style="margin:0">对照用静态视觉基线（Round 7.3 frozen snapshot）：<a href="../snapshot.html">snapshot.html</a></p>
+  </div>
+</div>
+<script>
+document.querySelectorAll('button[data-c]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    try { window.sessionStorage.setItem('ir_cond', b.getAttribute('data-c')); } catch (e) {}
+    window.location.href = '../index.html';
+  });
+});
+</script>
+</body>
+</html>
 
